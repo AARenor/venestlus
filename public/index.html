@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e1120">
+<meta name="description" content="Venestlus — eestlaste ja venelaste iseloomupidu ja tutvused. Характеры и знакомства эстонцев и русских.">
+<title>Venestlus</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="logo" aria-label="Venestlus"><span class="logo-mark" aria-hidden="true">V</span><span><span id="brandName">Venestlus</span><small id="brandTag">ISELOMUPIDU</small></span></div>
+    <div class="spacer"></div>
+    <div class="lang-toggle" role="group" aria-label="Language / Keel">
+      <button type="button" id="langEt" aria-pressed="true">ET</button>
+      <button type="button" id="langRu" aria-pressed="false">RU</button>
+    </div>
+  </div>
+</header>
+<main class="wrap" id="app">
+  <div id="error" role="alert"></div>
+  <div id="view"></div>
+  <div id="loading" aria-live="polite"><div class="spin" aria-hidden="true"></div><span id="loadingTxt">Laadin…</span></div>
+</main>
+<nav class="tabs" id="tabs" hidden>
+  <div class="tabs-in" role="tablist" id="tabsIn"></div>
+</nav>
+<noscript><p style="padding:20px;text-align:center">Venestlus vajab JavaScripti. / Нужен JavaScript.</p></noscript>
+<script src="/app.js" defer></script>
+</body>
+</html>
