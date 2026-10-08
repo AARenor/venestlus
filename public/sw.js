@@ -1,7 +1,10 @@
-const CACHE = "venestlus-v4";
+const CACHE = "venestlus-v5";
 const SHELL = ["/", "/app.js", "/style.css", "/manifest.webmanifest",
   "/icons/icon-192.png", "/icons/icon-512.png",
-  "/icons/icon-maskable-512.png", "/icons/apple-touch-icon.png"];
+  "/icons/icon-maskable-512.png", "/icons/apple-touch-icon.png",
+  // self-hosted fonts (Playfair Display + Inter, latin / latin-ext / cyrillic)
+  "/fonts/inter-latin.woff2", "/fonts/inter-latin-ext.woff2", "/fonts/inter-cyrillic.woff2",
+  "/fonts/playfair-700-latin.woff2", "/fonts/playfair-700-latin-ext.woff2", "/fonts/playfair-700-cyrillic.woff2"];
 
 // Precache with cache:"no-cache" so a CDN revalidation can never pin stale
 // shell assets right after a deploy (CDN may serve max-age on static files).

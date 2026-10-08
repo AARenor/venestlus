@@ -24,6 +24,10 @@ Live: **https://app.arle.top**
 - **Backend:** Node.js 22+, zero runtime dependencies (`node:http`, `node:sqlite`).
 - **Frontend:** vanilla-JS SPA + service worker PWA (installable on phones),
   no CDNs, works offline, full ET/RU i18n.
+- **Fonts:** self-hosted `public/fonts/` — Playfair Display 700 (display) and
+  Inter variable (UI), subsets latin/latin-ext/cyrillic so ET and RU both render
+  properly. SIL OFL 1.1 (fonts.google.com/specimen/Playfair+Display, /Inter).
+  No runtime CDN requests, so the PWA keeps working offline.
 - **DB:** SQLite (WAL) at `DATA_DIR/venestlus.db`.
 
 ## Run
