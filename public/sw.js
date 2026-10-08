@@ -1,4 +1,4 @@
-const CACHE = "venestlus-v3";
+const CACHE = "venestlus-v4";
 const SHELL = ["/", "/app.js", "/style.css", "/manifest.webmanifest",
   "/icons/icon-192.png", "/icons/icon-512.png",
   "/icons/icon-maskable-512.png", "/icons/apple-touch-icon.png"];
@@ -32,7 +32,18 @@ self.addEventListener("fetch", (e) => {
   if (url.pathname.startsWith("/api/")) return; // network-only for API
   e.respondWith(
     caches.match(url.pathname).then((hit) => {
-      if (hit) return hit;
+      if (hit) {
+        // stale-while-revalidate for shell files: serve fast, refresh cache in
+        // background (defeats CDN/browser staleness without a version bump)
+        if (SHELL.some((p) => url.pathname === p) || url.pathname === "/") {
+          e.waitUntil(
+            fetch(e.request, { cache: "no-cache" })
+              .then((r) => { if (r.ok) return caches.open(CACHE).then((c) => c.put(url.pathname, r.clone())); })
+              .catch(() => {})
+          );
+        }
+        return hit;
+      }
       const inShell = SHELL.some((p) => url.pathname === p);
       return fetch(e.request, inShell ? { cache: "no-cache" } : {}).then((res) => {
         if (res.ok && SHELL.some((p) => url.pathname === p || (p === "/" && url.pathname === "/"))) {
