@@ -356,8 +356,12 @@ function renderQuiz(v) {
     const c = el("div", "card");
     c.appendChild(el("h2", null, T().q1t));
     const mkField = (label, type, val, ph, key, num) => {
-      c.appendChild(el("label", "f", label));
+      const id = "q-" + key;
+      const lab = el("label", "f", label);
+      lab.htmlFor = id;
+      c.appendChild(lab);
       const inp = document.createElement("input");
+      inp.id = id;
       inp.type = type; inp.value = val; inp.placeholder = ph;
       if (num) { inp.inputMode = "numeric"; }
       inp.addEventListener("input", () => { f[key] = inp.value; validate(); });
@@ -443,8 +447,11 @@ function renderQuiz(v) {
       }));
     });
     c.appendChild(g);
-    c.appendChild(el("label", "f", T().q5note));
+    const noteLab = el("label", "f", T().q5note);
+    noteLab.htmlFor = "q-note";
+    c.appendChild(noteLab);
     const ta = document.createElement("textarea");
+    ta.id = "q-note";
     ta.maxLength = 200; ta.placeholder = T().q5notePh; ta.value = f.note;
     ta.addEventListener("input", () => { f.note = ta.value; });
     c.appendChild(ta);
@@ -701,8 +708,12 @@ function renderPlans(v) {
   const form = el("div", "card");
   form.appendChild(el("b", null, T().addPlan));
   const mkIn = (label, ph, key) => {
-    form.appendChild(el("label", "f", label));
+    const id = "p-" + key;
+    const lab = el("label", "f", label);
+    lab.htmlFor = id;
+    form.appendChild(lab);
     const i = document.createElement("input");
+    i.id = id;
     i.type = "text"; i.placeholder = ph; i.value = (state.newPlan && state.newPlan[key]) || "";
     i.addEventListener("input", () => { state.newPlan = state.newPlan || {}; state.newPlan[key] = i.value; });
     form.appendChild(i);
