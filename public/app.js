@@ -3,8 +3,9 @@
 
 const STR = {
   et: {
-    brandTag: "ISELOMUPIDU",
+    brandTag: "iseloomupidu",
     tagline: "Eestlaste ja venelaste iseloomupidu ja tutvused",
+    landingNote: "6 küsimust, 1 minut — ja iseloom valmis.",
     statsPeople: "inimest", statsCircles: "huviringi", statsPlans: "plaani",
     statsAi: "tehisaru sees", offline: "võrguühendus puudub — näitan vahemälu",
     start: "Alusta", continue: "Jätka", next: "Edasi", back: "Tagasi", skip: "Jäta vahele",
@@ -37,8 +38,9 @@ const STR = {
     restart: "Alusta uuesti",
   },
   ru: {
-    brandTag: "ВЕЧЕР ХАРАКТЕРОВ",
+    brandTag: "встреча характеров",
     tagline: "Характеры и знакомства эстонцев и русских",
+    landingNote: "6 вопросов, 1 минута — и характер готов.",
     statsPeople: "людей", statsCircles: "кружков", statsPlans: "планов",
     statsAi: "ИИ включён", offline: "Нет сети — показываю кэш",
     start: "Начать", continue: "Продолжить", next: "Далее", back: "Назад", skip: "Пропустить",
@@ -249,7 +251,23 @@ function render() {
   return renderLanding(v);
 }
 
+// Static bridge illustration: two banks, one bridge, two people meeting in the middle.
+const BRIDGE_ART = `<svg viewBox="0 0 300 132" fill="none" aria-hidden="true" focusable="false">
+  <path d="M8 120h284" stroke="#cdd4ea" stroke-width="6" stroke-linecap="round"/>
+  <path d="M96 120V42M204 120V42" stroke="#121527" stroke-width="7" stroke-linecap="round"/>
+  <path d="M36 94h228" stroke="#121527" stroke-width="7" stroke-linecap="round"/>
+  <path d="M118 49v45M136 64v30M164 64v30M182 49v45" stroke="#b9c1de" stroke-width="4" stroke-linecap="round"/>
+  <path d="M36 88C60 88 74 42 96 42c28 0 36 30 54 26 18-4 26-24 54-24 22 0 36 44 60 44" stroke="#f5a524" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="141" cy="83" r="7.5" fill="#1b48d0"/>
+  <circle cx="159" cy="83" r="7.5" fill="#f5a524"/>
+  <path d="M148.5 83h3" stroke="#121527" stroke-width="4" stroke-linecap="round"/>
+</svg>`;
+
 function renderLanding(v) {
+  const art = document.createElement("div");
+  art.className = "hero-art";
+  art.innerHTML = BRIDGE_ART; // static trusted markup, no API data
+  v.appendChild(art);
   const h = el("h1", "wordmark");
   const a = el("span", "grad", "Venestlus");
   h.appendChild(a);
@@ -286,6 +304,7 @@ function renderLanding(v) {
     } else { state.screen = "quiz"; state.step = 1; render(); }
   });
   v.appendChild(btn);
+  v.appendChild(el("p", "sec-sub note", T().landingNote));
   if (!state.stats) loadStats();
 }
 async function loadStats() {

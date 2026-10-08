@@ -13,7 +13,8 @@ def lerp(a, b, t):
 
 
 def make(size, maskable=False):
-    top, bottom = (18, 22, 48), (64, 26, 92)
+    # cobalt plate, white bridge, marigold cables — reads on light home screens
+    top, bottom = (27, 72, 208), (16, 44, 150)
     img = Image.new("RGB", (size, size))
     d = ImageDraw.Draw(img)
     for y in range(size):
@@ -27,7 +28,7 @@ def make(size, maskable=False):
     tw1, tw2 = int(0.34 * size), int(0.66 * size)
     tower_top = int(0.30 * size)
     white = (255, 255, 255)
-    accent = (255, 176, 32)
+    accent = (245, 165, 36)
     w = max(2, int(14 * s))
 
     d.line([(x0, deck_y), (x1, deck_y)], fill=white, width=w)
