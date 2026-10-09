@@ -1,4 +1,4 @@
-const CACHE = "venestlus-v7";
+const CACHE = "venestlus-v8";
 const SHELL = ["/", "/app.js", "/style.css", "/manifest.webmanifest",
   "/icons/icon-192.png", "/icons/icon-512.png",
   "/icons/icon-maskable-512.png", "/icons/apple-touch-icon.png",

@@ -165,8 +165,10 @@ test('HTTP: auth required for protected routes', async () => {
     assert.strictEqual(r1.status, 401);
     const r2 = await app.post('/api/profile', { ...SAMPLE, name: '' });
     assert.strictEqual(r2.status, 400);
-    const r3 = await app.post('/api/profile', { ...SAMPLE, age: 12 });
+    const r3 = await app.post('/api/profile', { ...SAMPLE, age: 11 });
     assert.strictEqual(r3.status, 400);
+    const r3b = await app.post('/api/profile', { ...SAMPLE, age: 12 });
+    assert.strictEqual(r3b.status < 400, true, 'age 12 must be allowed');
     const r4 = await app.post('/api/profile', { ...SAMPLE, interests: ['nope'] });
     assert.strictEqual(r4.status, 400);
     const r5 = await app.get('/api/nope');

@@ -82,7 +82,7 @@ function validateProfile(body) {
   const age = Number(body.age);
   if (!name) throw err(400, 'name_invalid');
   if (!city) throw err(400, 'city_invalid');
-  if (!Number.isInteger(age) || age < 16 || age > 99) throw err(400, 'age_invalid');
+  if (!Number.isInteger(age) || age < 12 || age > 120) throw err(400, 'age_invalid');
   const lang = enumOf(body.lang, OPTIONS.lang);
   const tongue = enumOf(body.tongue, OPTIONS.tongue);
   const looking = enumOf(body.looking, OPTIONS.looking);

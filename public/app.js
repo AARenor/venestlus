@@ -10,7 +10,7 @@ const STR = {
     start: "Alusta", continue: "Jätka", next: "Edasi", back: "Tagasi", skip: "Jäta vahele",
     retry: "Proovi uuesti", loading: "Laadin…", saving: "Salvestan…",
     q1t: "Kes sa oled?", q1name: "Nimi", q1namePh: "nt Mari", q1age: "Vanus", q1city: "Linn", q1cityPh: "nt Tallinn",
-    q1err: "Sisesta nimi (1–40), vanus (16–99) ja linn (1–40).",
+    q1err: "Sisesta nimi (1–40), vanus (alates 12) ja linn (1–40).",
     q1s: "Alustame lihtsast — täida kolm välja.",
     q2t: "Mis on su emakeel?", q3t: "Vali 1–8 huvi", q3sub: "Valitud",
     q2s: "Selle järgi sobitame sind keelegrupi järgi.",
@@ -49,7 +49,7 @@ const STR = {
     start: "Начать", continue: "Продолжить", next: "Далее", back: "Назад", skip: "Пропустить",
     retry: "Попробовать снова", loading: "Загрузка…", saving: "Сохраняю…",
     q1t: "Кто ты?", q1name: "Имя", q1namePh: "напр. Мария", q1age: "Возраст", q1city: "Город", q1cityPh: "напр. Таллинн",
-    q1err: "Введи имя (1–40), возраст (16–99) и город (1–40).",
+    q1err: "Введи имя (1–40), возраст (от 12) и город (1–40).",
     q1s: "Начнём с простого — заполни три поля.",
     q2t: "Твой родной язык?", q3t: "Выбери 1–8 интересов", q3sub: "Выбрано",
     q2s: "По языку мы подбираем тебе группу.",
@@ -403,14 +403,14 @@ function renderQuiz(v) {
     const row = navRow(v, { onNext: () => {
       const age = Number(String(f.age).trim());
       const ok = f.name.trim().length >= 1 && f.name.trim().length <= 40 &&
-        Number.isFinite(age) && age >= 16 && age <= 99 &&
+        Number.isFinite(age) && age >= 12 && age <= 120 &&
         f.city.trim().length >= 1 && f.city.trim().length <= 40;
       if (!ok) { showError(T().q1err); return; }
       showError(null); state.step = 2; render();
     }});
     const validate = () => {
       const age = Number(String(f.age).trim());
-      row.next.disabled = !(f.name.trim().length >= 1 && Number.isFinite(age) && age >= 16 && age <= 99 && f.city.trim().length >= 1);
+      row.next.disabled = !(f.name.trim().length >= 1 && Number.isFinite(age) && age >= 12 && age <= 120 && f.city.trim().length >= 1);
     };
     validate();
     nameI.focus();
