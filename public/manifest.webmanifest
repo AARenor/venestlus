@@ -1,7 +1,7 @@
 {
   "name": "Venestlus",
   "short_name": "Venestlus",
-  "description": "Eestlaste ja venelaste iseloomupidu ja tutvused. Характеры и знакомства эстонцев и русских.",
+  "description": "Eestlaste ja venelaste iseloomutest ja tutvused. Характеры и знакомства эстонцев и русских.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

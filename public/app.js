@@ -3,8 +3,7 @@
 
 const STR = {
   et: {
-    brandTag: "iseloomupidu",
-    tagline: "Eestlaste ja venelaste iseloomupidu ja tutvused",
+    tagline: "Eestlaste ja venelaste iseloomutest ja tutvused",
     landingNote: "6 küsimust, 1 minut — ja iseloom valmis.",
     statsPeople: "inimest", statsCircles: "huviringi", statsPlans: "plaani",
     statsAi: "tehisaru sees", offline: "võrguühendus puudub — näitan vahemälu",
@@ -38,7 +37,6 @@ const STR = {
     restart: "Alusta uuesti",
   },
   ru: {
-    brandTag: "встреча характеров",
     tagline: "Характеры и знакомства эстонцев и русских",
     landingNote: "6 вопросов, 1 минута — и характер готов.",
     statsPeople: "людей", statsCircles: "кружков", statsPlans: "планов",
@@ -187,7 +185,6 @@ function applyLang() {
   document.documentElement.lang = state.lang;
   $("#langEt").setAttribute("aria-pressed", state.lang === "et" ? "true" : "false");
   $("#langRu").setAttribute("aria-pressed", state.lang === "ru" ? "true" : "false");
-  $("#brandTag").textContent = T().brandTag;
   renderTabs();
   render();
 }
