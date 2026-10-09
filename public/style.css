@@ -237,7 +237,19 @@ nav.tabs{
   border:3px solid #e9ecf5; border-top-color:var(--blue); animation:sp 1s linear infinite;}
 @keyframes sp{to{transform:rotate(360deg)}}
 .empty{text-align:center; color:var(--mut); padding:30px 10px; font-size:15px; line-height:1.6;}
+/* quiz step polish */
+@keyframes stepIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.card.step-in { animation: stepIn .24s ease both; }
+.qbadge {
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--blue-tint); color: var(--blue);
+  margin-bottom: 14px;
+}
+.qbadge svg { width: 22px; height: 22px; }
+.qsub { margin: -2px 0 16px; font-size: 15px; color: var(--mut); }
 .empty .big{font-size:40px; display:block; margin-bottom:8px;}
+.empty .big svg{width:38px; height:38px;}
 .empty .btn{max-width:240px; margin:14px auto 0;}
 .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
 

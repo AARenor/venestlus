@@ -11,8 +11,13 @@ const STR = {
     retry: "Proovi uuesti", loading: "Laadin…", saving: "Salvestan…",
     q1t: "Kes sa oled?", q1name: "Nimi", q1namePh: "nt Mari", q1age: "Vanus", q1city: "Linn", q1cityPh: "nt Tallinn",
     q1err: "Sisesta nimi (1–40), vanus (16–99) ja linn (1–40).",
+    q1s: "Alustame lihtsast — täida kolm välja.",
     q2t: "Mis on su emakeel?", q3t: "Vali 1–8 huvi", q3sub: "Valitud",
+    q2s: "Selle järgi sobitame sind keelegrupi järgi.",
+    q3s: "Vali kõik, mis sind päriselt huvitab.",
     q4t: "Kuidas veedad nädalavahetust?", q5t: "Mida otsid?", q5note: "Paar sõna endast (valikuline)",
+    q4s: "Nädalavahetus räägib inimesest palju.",
+    q5s: "Selle järgi otsime sarnaseid inimesi.",
     q5notePh: "nt Armastan jalutada vanalinnas…", q6t: "Kuhu plaanid minna? (kuni 3)",
     q6sub: "Valikuline — saad hiljem liituda",
     finish: "Näita mu iseloomu",
@@ -45,8 +50,13 @@ const STR = {
     retry: "Попробовать снова", loading: "Загрузка…", saving: "Сохраняю…",
     q1t: "Кто ты?", q1name: "Имя", q1namePh: "напр. Мария", q1age: "Возраст", q1city: "Город", q1cityPh: "напр. Таллинн",
     q1err: "Введи имя (1–40), возраст (16–99) и город (1–40).",
+    q1s: "Начнём с простого — заполни три поля.",
     q2t: "Твой родной язык?", q3t: "Выбери 1–8 интересов", q3sub: "Выбрано",
+    q2s: "По языку мы подбираем тебе группу.",
+    q3s: "Выбери всё, что тебе правда интересно.",
     q4t: "Как проводишь выходные?", q5t: "Что ищешь?", q5note: "Пара слов о себе (необязательно)",
+    q4s: "Выходные многое рассказывают о человеке.",
+    q5s: "По этому мы ищем похожих людей.",
     q5notePh: "напр. Люблю гулять по Старому городу…", q6t: "Куда планируешь пойти? (до 3)",
     q6sub: "Необязательно — можно позже",
     finish: "Покажи мой характер",
@@ -346,12 +356,33 @@ function navRow(v, opts) {
   return { back, next };
 }
 
+const Q_ICONS = [
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+];
+const ICON_HEART = Q_ICONS[4];
+const ICON_CAL = Q_ICONS[3];
+
+/* Quiz step card: icon badge + serif title + helper line. */
+function qCard(step, title, sub) {
+  const c = el("div", "card step-in");
+  const badge = el("div", "qbadge");
+  badge.innerHTML = Q_ICONS[step - 1];
+  c.appendChild(badge);
+  c.appendChild(el("h2", null, title));
+  if (sub) c.appendChild(el("p", "qsub", sub));
+  return c;
+}
+
 function renderQuiz(v) {
   const f = state.form;
   if (state.step === 1) {
     progressHead(v, 1, 6);
-    const c = el("div", "card");
-    c.appendChild(el("h2", null, T().q1t));
+    const c = qCard(1, T().q1t, T().q1s);
     const mkField = (label, type, val, ph, key, num) => {
       const id = "q-" + key;
       const lab = el("label", "f", label);
@@ -383,10 +414,12 @@ function renderQuiz(v) {
     };
     validate();
     nameI.focus();
+    [nameI, ageI, cityI].forEach((inp) => inp.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter" && !row.next.disabled) { ev.preventDefault(); row.next.click(); }
+    }));
   } else if (state.step === 2) {
     progressHead(v, 2, 6);
-    const c = el("div", "card");
-    c.appendChild(el("h2", null, T().q2t));
+    const c = qCard(2, T().q2t, T().q2s);
     const g = el("div", "opt-grid");
     Object.keys(TONGUE).forEach((k) => {
       g.appendChild(optBtn(TONGUE[k][LI()], null, f.tongue === k, () => {
@@ -398,8 +431,7 @@ function renderQuiz(v) {
     navRow(v, { label: T().skip, onNext: () => { f.tongue = f.tongue || "both"; state.step = 3; render(); } });
   } else if (state.step === 3) {
     progressHead(v, 3, 6);
-    const c = el("div", "card");
-    c.appendChild(el("h2", null, T().q3t));
+    const c = qCard(3, T().q3t, T().q3s);
     const cnt = el("p", "sec-sub", T().q3sub + ": " + f.interests.length + "/8");
     c.appendChild(cnt);
     const chips = el("div", "chips");
@@ -418,8 +450,7 @@ function renderQuiz(v) {
     navRow(v, { disabled: f.interests.length < 1, onNext: () => { showError(null); state.step = 4; render(); } });
   } else if (state.step === 4) {
     progressHead(v, 4, 6);
-    const c = el("div", "card");
-    c.appendChild(el("h2", null, T().q4t));
+    const c = qCard(4, T().q4t, T().q4s);
     const g = el("div", "opt-grid");
     Object.keys(WEEKEND).forEach((k) => {
       g.appendChild(optBtn(WEEKEND[k][LI()], null, f.weekend === k, () => {
@@ -431,8 +462,7 @@ function renderQuiz(v) {
     navRow(v, { label: T().skip, onNext: () => { f.weekend = f.weekend || "friends"; state.step = 5; render(); } });
   } else if (state.step === 5) {
     progressHead(v, 5, 6);
-    const c = el("div", "card");
-    c.appendChild(el("h2", null, T().q5t));
+    const c = qCard(5, T().q5t, T().q5s);
     const g = el("div", "opt-grid");
     Object.keys(LOOKING).forEach((k) => {
       g.appendChild(optBtn(LOOKING[k][LI()], null, f.looking === k, () => {
@@ -473,8 +503,7 @@ async function ensurePlans() {
   }
 }
 function renderPlanPicker(v) {
-  const c = el("div", "card");
-  c.appendChild(el("h2", null, T().q6t));
+  const c = qCard(6, T().q6t);
   c.appendChild(el("p", "sec-sub", T().q6sub));
   const chips = el("div", "chips");
   const list = state.plansCache || [];
@@ -598,7 +627,7 @@ function renderMatches(v) {
   if (!list.length) {
     const authed = !!state.me;
     const c = el("div", "card empty");
-    c.appendChild(el("span", "big", "💜"));
+    c.appendChild(el("span", "big")).innerHTML = ICON_HEART;
     c.appendChild(el("p", null, authed ? T().matchEmptyAuth : T().matchEmpty));
     c.appendChild(el("p", "sec-sub", authed ? T().matchEmptyAuthSub : T().matchEmptySub));
     const again = el("button", "btn", T().retry);
@@ -738,7 +767,7 @@ function renderPlans(v) {
   v.appendChild(form);
   if (!state.plans.length) {
     const e2 = el("div", "card empty");
-    e2.appendChild(el("span", "big", "🗓️"));
+    e2.appendChild(el("span", "big")).innerHTML = ICON_CAL;
     e2.appendChild(el("p", null, T().noPlans));
     v.appendChild(e2);
     return;
