@@ -44,7 +44,7 @@ const TAG_TRAITS = {
 
 const WEEKEND = {
   home: {
-    et: 'Kodus siibin', ru: 'Дома отдыхаю',
+    et: 'Kodus puhkamas', ru: 'Дома отдыхаю',
     phrase: { et: 'rahulik kodune aeg', ru: 'спокойный отдых дома' },
     traits: { plaanitus: 10, sotsiaalsus: -15, avatus: -5 },
   },

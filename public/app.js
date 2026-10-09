@@ -83,7 +83,7 @@ const STR = {
 };
 
 const INTERESTS = { music: ["Muusika", "Музыка"], sport: ["Sport", "Спорт"], food: ["Toit", "Еда"], nature: ["Loodus", "Природа"], games: ["Mängud", "Игры"], art: ["Kunst", "Искусство"], tech: ["Tehnoloogia", "Технологии"], night: ["Ööelu", "Ночная жизнь"], family: ["Pere", "Семья"], travel: ["Reisimine", "Путешествия"], languages: ["Keeled", "Языки"], volunteering: ["Vabatahtlikkus", "Волонтёрство"], reading: ["Lugemine", "Чтение"], cinema: ["Kino", "Кино"], photo: ["Fotograafia", "Фотография"], dance: ["Tants", "Танцы"] };
-const WEEKEND = { home: ["Kodus siibin", "Дома отдыхаю"], friends: ["Sõpradega", "С друзьями"], outdoors: ["Õues", "На улице"], events: ["Üritustel", "На мероприятиях"] };
+const WEEKEND = { home: ["Kodus puhkamas", "Дома отдыхаю"], friends: ["Sõpradega", "С друзьями"], outdoors: ["Õues", "На улице"], events: ["Üritustel", "На мероприятиях"] };
 const LOOKING = { friends: ["Sõprust", "Дружбу"], chat: ["Vestlust", "Общение"], relationship: ["Suhet", "Отношения"] };
 const TONGUE = { et: ["Eesti keel", "Эстонский"], ru: ["Vene keel", "Русский"], both: ["Mõlemad", "Оба"] };
 
