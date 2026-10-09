@@ -40,6 +40,10 @@ const STR = {
     step: "Samm", of: "/",
     meSub: "Sinu profiil ja iseloom",
     restart: "Alusta uuesti",
+    donateTitle: "Toeta meid",
+    donateText: "Venestlus on tasuta ja reklaamivaba. Iga annetus läheb arendusse.",
+    donateIban: "Pangakonto", donateTo: "Saaja",
+    donateCopy: "Kopeeri konto", donateCopied: "Kopeeritud!",
   },
   ru: {
     tagline: "Характеры и знакомства эстонцев и русских",
@@ -79,6 +83,10 @@ const STR = {
     step: "Шаг", of: " / ",
     meSub: "Твой профиль и характер",
     restart: "Начать заново",
+    donateTitle: "Поддержи нас",
+    donateText: "Venestlus бесплатный и без рекламы. Каждое пожертвование идёт на развитие.",
+    donateIban: "Банковский счёт", donateTo: "Получатель",
+    donateCopy: "Скопировать счёт", donateCopied: "Скопировано!",
   }
 };
 
@@ -570,6 +578,29 @@ function personalityCard(me) {
   if (p.interests && p.interests.length) card.appendChild(interestChips(p.interests));
   return card;
 }
+const DONATE = { iban: "EE082200221049280369", who: "KAUR ESKOR" };
+function donateCard() {
+  const c = el("div", "card donate");
+  c.appendChild(el("h2", null, T().donateTitle));
+  c.appendChild(el("p", "sec-sub", T().donateText));
+  const ib = el("div", "iban", "EE08 2200 2210 4928 0369");
+  c.appendChild(ib);
+  c.appendChild(el("div", "who", T().donateTo + ": " + DONATE.who));
+  const b = el("button", "btn ghost", T().donateCopy);
+  b.type = "button";
+  b.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(DONATE.iban);
+      b.textContent = T().donateCopied;
+      setTimeout(() => { b.textContent = T().donateCopy; }, 1600);
+    } catch (e) {
+      const r = document.createRange(); r.selectNodeContents(ib);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+  });
+  c.appendChild(b);
+  return c;
+}
 function renderResult(v) {
   if (!state.me) { state.screen = "landing"; return renderLanding(v); }
   v.appendChild(personalityCard(state.me));
@@ -586,6 +617,7 @@ function renderResult(v) {
   ghost.type = "button"; ghost.style.marginTop = "10px";
   ghost.addEventListener("click", () => { state.screen = "me"; render(); });
   v.appendChild(ghost);
+  v.appendChild(donateCard());
 }
 function renderMe(v) {
   const me = state.me;
@@ -613,6 +645,7 @@ function renderMe(v) {
     state.screen = "landing"; showError(null); render();
   });
   v.appendChild(out);
+  v.appendChild(donateCard());
 }
 
 function renderMatches(v) {

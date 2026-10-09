@@ -1,6 +1,6 @@
 {
   "name": "venestlus",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "private": true,
   "description": "Venestlus — bilingual ET/RU personality matching PWA",
   "main": "server.js",

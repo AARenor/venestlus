@@ -252,6 +252,12 @@ nav.tabs{
 .empty .big svg{width:38px; height:38px;}
 .empty .btn{max-width:240px; margin:14px auto 0;}
 .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+.donate{text-align:center; background:var(--blue-tint); border:1px solid #dde5fb;}
+.donate h2{font-size:20px;}
+.donate .sec-sub{margin-bottom:14px;}
+.donate .iban{font-size:17px; font-weight:600; letter-spacing:.04em; color:var(--ink); word-break:break-all;}
+.donate .who{margin-top:4px; font-size:14px; color:var(--mut);}
+.donate .btn{margin-top:14px;}
 
 @media (min-width:600px){
   h1.wordmark{margin-top:40px;}
