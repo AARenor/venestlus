@@ -1,3 +1,6 @@
 node_modules/
 data/
 *.log
+.opencode/
+node_modules/
+data/
